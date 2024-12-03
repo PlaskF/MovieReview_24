@@ -1,12 +1,15 @@
 package kr.ac.kopo.moviereview_24.repository;
 
+import jakarta.transaction.Transactional;
 import kr.ac.kopo.moviereview_24.entity.Member;
 import kr.ac.kopo.moviereview_24.entity.Movie;
 import kr.ac.kopo.moviereview_24.entity.Review;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -40,6 +43,23 @@ public class ReviewRepositoryTest {
                     .build();
 
             reviewRepository.save(review);
+        });
+    }
+
+    @Test
+    public void testGetMovieReviews() {
+        Movie movie = Movie.builder()
+                .mno(91L)
+                .build();
+
+        List<Review> result = reviewRepository.findByMovie(movie);
+
+        result.forEach(review -> {
+            System.out.println(review.getReviewnum() + "\t");
+            System.out.println(review.getGrade() + "\t");
+            System.out.println(review.getText() + "\t");
+            System.out.println(review.getMember().getEmail() + "\t");
+            System.out.println("--------------------------------------");
         });
     }
 }

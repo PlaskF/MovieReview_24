@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.IntStream;
@@ -51,6 +52,17 @@ public class MovieRepositoryTest {
 
         for (Object[] objects : result.getContent()) {
             System.out.println("♠" + Arrays.toString(objects));
+        }
+    }
+
+    @Test
+    public void testGetMovieWithAll() {
+        List<Object[]> result = movieRepository.getMovieWithAll(95L);
+
+        System.out.println(result);
+
+        for (Object[] arr : result) {
+            System.out.println(Arrays.toString(arr));
         }
     }
 }
